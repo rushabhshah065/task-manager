@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
-const {
-    MONGO_URL
-} = require('../index')
+// const {
+//     MONGO_URL
+// } = require('../index')
 
-console.log('MONGO_URL',process.env.MONGODB_URI)
+// console.log('MONGO_URL',process.env.MONGODB_URI)
 
 mongoose.connect(process.env.MONGODB_URI + '/task-mager-api', {
     useNewUrlParser: true,

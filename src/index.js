@@ -31,6 +31,10 @@ app.use(express.json())
 app.use(userrouter)
 app.use(taskrouter)
 
+app.get('*', (request, response) => {
+	response.send("Heroku running! But nothing found!!");
+});
+
 const Task = require('./models/task')
 const User = require('./models/user')
 
