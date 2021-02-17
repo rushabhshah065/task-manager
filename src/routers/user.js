@@ -2,6 +2,27 @@ const express = require('express')
 const router = new express.Router()
 const User = require('../models/user')
 const auth = require('../middleware/auth')
+const sharp = require('sharp')
+const multer = require('multer')
+const upload = multer({
+    // dest: 'user/avtar',
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+
+        // const extention = file.originalname.match(/\.(doc | docx)$/)
+        // if (!extention) {
+        //     return cb(new Error('File must be a document.'))
+        // }
+
+        cb(undefined, true)
+
+        // cb(new Error ('File must be a PDF'))
+        // cb(undefined,true)
+        // cb(undefined,false)
+    }
+})
 
 router.post("/users", async (req, res) => {
     console.log(req.body)
@@ -131,6 +152,67 @@ router.delete('/users/me', auth, async (req, res) => {
         res.status(500)
     }
 })
+
+
+const errorMiddleware = (req, res, next) => {
+
+    throw new Error('My error')
+}
+
+router.post('/users/me/avtar', auth, upload.single('avatar'), async (req, res) => {
+
+
+        const buffer = await sharp(req.file.buffer).resize({
+            width: 250,
+            height: 250
+        }).png().toBuffer()
+        req.user.avatar = buffer
+        await req.user.save()
+        res.send({
+            message: 'Profile image uploaded succesfully.'
+        })
+    },
+    (error, req, res, next) => {
+        console.log(error)
+        res.status(400).send()
+    })
+
+
+router.delete('/users/me/avtar', auth, async (req, res) => {
+
+    req.user.avatar = undefined;
+
+    try {
+        await req.user.save()
+        res.send({
+            message: 'Profile image deleted succesfully.'
+        })
+    } catch (e) {
+        res.status(500).send({
+            error: 'Profile image delete error occured.'
+        })
+    }
+})
+
+router.get('/users/me/avtar', auth, async (req, res) => {
+
+    console.log('req.user.avatar', req.user.avatar)
+
+    try {
+
+        if (!req.user.avatar) {
+            throw new Error()
+        }
+
+        res.set('Content-Type', 'image/png')
+        res.send(user.avatar)
+    } catch (e) {
+        res.status(500).send({
+            error: 'Profile image delete error occured.'
+        })
+    }
+})
+
 
 
 module.exports = router
