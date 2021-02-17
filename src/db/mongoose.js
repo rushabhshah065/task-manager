@@ -3,22 +3,22 @@ const {
     MONGO_URL
 } = require('../index')
 
-console.log('MONGO_URL',process.env.MONGO_URL)
+console.log('MONGO_URL',process.env.MONGODB_URI)
 
-// mongoose.connect(process.env.MONGO_URL + '/task-mager-api', {
-//     useNewUrlParser: true,
-//     useCreateIndex: true
-// })
+mongoose.connect(process.env.MONGODB_URI + '/task-mager-api', {
+    useNewUrlParser: true,
+    useCreateIndex: true
+})
 
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = process.env.MONGODB_URI;
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
 
 // const me = new User({
 //     name: 'Rushabh',
