@@ -213,17 +213,4 @@ router.get('/users/me/avtar', auth, async (req, res) => {
     }
 })
 
-router.get('*', async (req, res) => {
-
-    try {
-        res.send({error : "404 Not found!"})
-    } catch (e) {
-        res.status(500).send({
-            error: 'Profile image delete error occured.'
-        })
-    }
-})
-
-
-
 module.exports = router
