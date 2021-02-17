@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 // console.log('MONGO_URL',process.env.MONGODB_URI)
 
-mongoose.connect(process.env.MONGODB_URI + '/task-mager-api', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useCreateIndex: true
 })
