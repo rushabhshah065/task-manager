@@ -12,7 +12,7 @@ console.log('MONGO_URL',process.env.MONGO_URL)
 
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://rushabh:<rushabh123>@cluster0.hhehm.mongodb.net/<task-mager-api>?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
