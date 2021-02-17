@@ -1,10 +1,15 @@
-const connectionURL = "mongodb://127.0.0.1:27017"
 const mongoose = require('mongoose')
+const {
+    MONGO_URL
+} = require('../index')
 
-mongoose.connect(connectionURL + '/task-mager-api', {
+console.log('MONGO_URL',process.env.MONGO_URL)
+
+mongoose.connect(process.env.MONGO_URL + '/task-mager-api', {
     useNewUrlParser: true,
     useCreateIndex: true
 })
+
 
 // const me = new User({
 //     name: 'Rushabh',
