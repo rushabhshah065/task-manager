@@ -45,8 +45,10 @@ router.get('/tasks', auth, async (req, res) => {
 
     try {
         const task = await Task.find({
-            owner: req.user._id
+            owner: req.user._id,
         })
+
+        // .sort([['createdAt','descending']]).limit(1).skip(1)
 
         if (!task) {
             return res.status(404).send()
