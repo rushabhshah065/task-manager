@@ -1,4 +1,3 @@
-require('dotenv').config()
 const express = require('express')
 require('./db/mongoose')
 const userrouter = require('./routers/user.js')
@@ -9,7 +8,7 @@ const taskrouter = require('./routers/task.js')
 const app = express()
 
 // define port
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 // //middleware
 // app.use((req, res, next) => {
